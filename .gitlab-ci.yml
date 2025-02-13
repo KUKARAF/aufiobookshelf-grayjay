@@ -1,0 +1,55 @@
+image: node:20-slim
+
+stages:
+  - test
+  - release
+
+cache:
+  paths:
+    - node_modules/
+
+test:
+  stage: test
+  before_script:
+    - apt-get update && apt-get install -y zip
+    - npm install node-fetch
+  script:
+    - node --experimental-modules plugin.mjs
+  except:
+    - tags
+
+create_release:
+  stage: release
+  before_script:
+    - apt-get update && apt-get install -y zip curl jq
+    - npm install node-fetch
+  script:
+    # Run tests first
+    - node --experimental-modules plugin.mjs
+    
+    # Create release ZIP
+    - zip grayjay-audiobookshelf-plugin.zip plugin.mjs config.json translations.json
+    
+    # Create GitLab release
+    - |
+      curl --header "PRIVATE-TOKEN: ${GITLAB_TOKEN}" \
+           --data-urlencode "name=Release ${CI_COMMIT_TAG}" \
+           --data-urlencode "tag_name=${CI_COMMIT_TAG}" \
+           --data-urlencode "description=Grayjay Audiobookshelf Plugin Release ${CI_COMMIT_TAG}" \
+           "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/releases"
+    
+    # Upload ZIP as release asset
+    - |
+      curl --header "PRIVATE-TOKEN: ${GITLAB_TOKEN}" \
+           --upload-file grayjay-audiobookshelf-plugin.zip \
+           "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/releases/${CI_COMMIT_TAG}/assets/links" \
+           --form "name=Plugin Package" \
+           --form "url=${CI_PROJECT_URL}/-/jobs/${CI_JOB_ID}/artifacts/raw/grayjay-audiobookshelf-plugin.zip"
+  artifacts:
+    paths:
+      - grayjay-audiobookshelf-plugin.zip
+  only:
+    - tags
+
+variables:
+  GIT_STRATEGY: clone
