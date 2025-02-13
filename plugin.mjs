@@ -282,9 +282,13 @@ const testPlugin = async function() {
 
         if (!testServerUrl || !testUsername || !testPassword) {
             console.error("Missing required test environment variables:");
-            console.error("TEST_SERVER_URL, TEST_USERNAME, and TEST_PASSWORD are required");
+            if (!testServerUrl) console.error("- TEST_SERVER_URL is missing");
+            if (!testUsername) console.error("- TEST_USERNAME is missing");
+            if (!testPassword) console.error("- TEST_PASSWORD is missing");
             process.exit(1);
         }
+
+        console.log("Testing with server URL:", testServerUrl.replace(/\/+$/, '')); // Remove trailing slashes for logging
 
         const testConfig = {
             serverUrl: testServerUrl,
@@ -292,21 +296,31 @@ const testPlugin = async function() {
             password: testPassword
         };
 
-        console.log("Testing with server:", testConfig.serverUrl);
-
         // Test initialize
+        console.log("\n1. Testing initialization...");
         await source.initialize(testConfig);
         console.log("✓ Initialize successful");
 
         // Test home
+        console.log("\n2. Testing home endpoint...");
         const home = await source.getHome();
-        console.log("✓ GetHome successful:", JSON.stringify(home, null, 2));
+        console.log("✓ GetHome successful");
+        console.log("Found libraries:", home.sections.length);
 
-        console.log("All tests completed successfully");
+        // Test search
+        console.log("\n3. Testing search functionality...");
+        const searchResult = await source.search("test", "AUDIO", "RELEVANCE", {});
+        console.log("✓ Search successful");
+
+        console.log("\nAll tests completed successfully!");
     } catch (error) {
-        console.error("Test failed:", error.message);
-        if (error.stack) {
-            console.error(error.stack);
+        console.error("\nTest failed:", error.message);
+        console.error("\nDetailed error information:");
+        console.error("- Message:", error.message);
+        console.error("- Stack:", error.stack);
+        if (error.response) {
+            console.error("- Response status:", error.response.status);
+            console.error("- Response data:", await error.response.text());
         }
         process.exit(1);
     }

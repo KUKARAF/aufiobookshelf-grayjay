@@ -63,9 +63,21 @@ Common issues and solutions:
 3. Run tests: `node --experimental-modules plugin.mjs`
 
 ### Creating a Release
+The project supports both GitHub Actions and GitLab CI/CD for automated releases.
+
+#### Using GitHub:
+1. Tag your commit: `git tag v1.0.0`
+2. Push with tags: `git push origin --tags`
+3. GitHub Actions will automatically:
+   - Run tests
+   - Create a release ZIP file
+   - Create a GitHub release
+   - Upload the ZIP as a release asset
+
+#### Using GitLab:
 1. Tag your commit: `git tag v1.0.0`
 2. Push with tags: `git push --tags`
-3. The CI/CD pipeline will automatically:
+3. The GitLab CI/CD pipeline will automatically:
    - Run tests
    - Create a release ZIP file
    - Create a GitLab release
