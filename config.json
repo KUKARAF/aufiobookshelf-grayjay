@@ -1,0 +1,32 @@
+{
+    "name": "Audiobookshelf",
+    "description": "Access your Audiobookshelf server content - Stream audiobooks from your personal server",
+    "author": "Plugin Developer",
+    "authorUrl": "https://github.com/advplyr/audiobookshelf",
+    "platformUrl": "https://www.audiobookshelf.org/",
+    "version": "1.0.0",
+    "requiresVersion": "1.0.0",
+    "config": {
+        "serverUrl": {
+            "type": "text",
+            "label": "Server URL",
+            "placeholder": "https://your-audiobookshelf-server.com",
+            "description": "Your Audiobookshelf server URL (e.g., https://books.example.com)",
+            "required": true
+        },
+        "username": {
+            "type": "text", 
+            "label": "Username",
+            "placeholder": "Your Audiobookshelf username",
+            "description": "Your Audiobookshelf server username",
+            "required": true
+        },
+        "password": {
+            "type": "password",
+            "label": "Password", 
+            "placeholder": "Your Audiobookshelf password",
+            "description": "Your Audiobookshelf server password",
+            "required": true
+        }
+    }
+}

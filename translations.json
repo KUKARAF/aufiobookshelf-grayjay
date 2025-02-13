@@ -1,0 +1,8 @@
+{
+    "en": {
+        "name": "Audiobookshelf",
+        "description": "Access your personal Audiobookshelf server library. Stream audiobooks directly from your self-hosted server.",
+        "connectionError": "Unable to connect to server. Please check your server URL and credentials.",
+        "authError": "Authentication failed. Please verify your username and password."
+    }
+}
