@@ -4,7 +4,40 @@ let headers = {};
 let baseUrl = "";
 let token = null;
 
+class AudiobookshelfHomePager extends VideoPager {
+    constructor(results, hasMore, context) {
+        super(results, hasMore, context);
+    }
+    
+    nextPage() {
+        return source.getHome(this.context.continuationToken);
+    }
+}
+
+class AudiobookshelfSearchPager extends VideoPager {
+    constructor(results, hasMore, context) {
+        super(results, hasMore, context);
+    }
+    
+    nextPage() {
+        return source.search(this.context.query, this.context.type, this.context.order, this.context.filters, this.context.continuationToken);
+    }
+}
+
+class AudiobookshelfChannelPager extends VideoPager {
+    constructor(results, hasMore, context) {
+        super(results, hasMore, context);
+    }
+    
+    nextPage() {
+        return source.getChannelContents(this.context.url, this.context.type, this.context.order, this.context.filters, this.context.continuationToken);
+    }
+}
+
 const source = {
+    enable: function(conf) {
+        return source.initialize(conf);
+    },
     version: 1,
 
     initialize: async function(config) {
@@ -276,6 +309,19 @@ const source = {
 
     isVideoUrl: function(url) {
         return url.includes("/items/");
+    },
+
+    isChannelUrl: function(url) {
+        return url.includes("/libraries/");
+    },
+
+    isPlaylistUrl: function(url) {
+        return url.includes("/playlists/");
+    },
+
+    getChannelContents: function(url, type, order, filters, continuationToken) {
+        const libraryId = url.split('/').pop();
+        return source.getChannel(libraryId, type, order, filters, continuationToken);
     }
 };
 

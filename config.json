@@ -3,9 +3,23 @@
     "description": "Access your Audiobookshelf server content - Stream audiobooks from your personal server",
     "author": "Plugin Developer",
     "authorUrl": "https://github.com/advplyr/audiobookshelf",
-    "platformUrl": "https://www.audiobookshelf.org/",
-    "version": "1.0.0",
-    "requiresVersion": "1.0.0",
+    "sourceUrl": "https://raw.githubusercontent.com/yourusername/grayjay-audiobookshelf/main/config.json",
+    "repositoryUrl": "https://github.com/yourusername/grayjay-audiobookshelf",
+    "scriptUrl": "./plugin.mjs",
+    "version": 1,
+    
+    "iconUrl": "./icon.png",
+    "id": "c0e25171-755f-4da8-9f9d-b5e4868a72d2",
+    
+    "scriptSignature": "",
+    "scriptPublicKey": "",
+    "packages": ["Http"],
+    
+    "allowEval": false,
+    "allowUrls": [
+        "audiobookshelf.org"
+    ],
+    
     "config": {
         "serverUrl": {
             "type": "text",
