@@ -11,8 +11,8 @@
     "iconUrl": "./icon.png",
     "id": "c0e25171-755f-4da8-9f9d-b5e4868a72d2",
     
-    "scriptSignature": "<OUTPUT_FROM_SIGNATURE>",
-    "scriptPublicKey": "<OUTPUT_FROM_PUBLIC_KEY>",
+    "scriptSignature": "LS0tLS1CRUdJTiBQR1AgU0lHTkFUVVJFLS0tLS0KCmlIVUVBQllLQUIwV0lRU1hCc25tRHhJVVpSc0EwRDRWRWliYnRQeDcrQVVDWjdvZUdRQUtDUkFWRWliYnRQeDcKK0toZ0FQOTNubVdZYnhZNktVQi91a1lYZGV3Y3dSeTlVRVk5RGtXNWx2RWxUbGlYelFFQTVrbGY1ZnVRWDhyQQpBNmdJT1JIaEhrY29SbkFjRG00UExTdklZdCtVand3PQo9VzdLTAotLS0tLUVORCBQR1AgU0lHTkFUVVJFLS0tLS0K",
+    "scriptPublicKey": "",
     "packages": ["Http"],
     
     "allowEval": false,
