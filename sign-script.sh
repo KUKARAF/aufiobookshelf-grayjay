@@ -1,20 +1,26 @@
 #!/bin/bash
 
-# Check if GPG is installed
-if ! command -v gpg &> /dev/null; then
-    echo "GPG is not installed. Please install it first."
+# Get the Git signing key
+GIT_SIGNING_KEY=$(git config --get user.signingkey)
+
+if [ -z "$GIT_SIGNING_KEY" ]; then
+    echo "No Git signing key found. Please configure your signing key:"
+    echo "git config --global user.signingkey <your-key>"
     exit 1
 fi
 
 # Read the plugin content
 PLUGIN_CONTENT=$(cat plugin.mjs)
 
-# Export public key in ASCII armor format
-GPG_PUBLIC_KEY=$(gpg --armor --export)
-echo "Public key (copy this to scriptPublicKey in config.json):"
-echo "$GPG_PUBLIC_KEY"
+# Export the public key used for Git commit signing
+PUBLIC_KEY=$(gpg --armor --export ${GIT_SIGNING_KEY})
 
-# Generate detached signature in base64
-SIGNATURE=$(echo -n "$PLUGIN_CONTENT" | gpg --sign --detach-sign --armor | base64 -w 0)
-echo -e "\nSignature (copy this to scriptSignature in config.json):"
-echo "$SIGNATURE"
+# Generate signature using the same key used for Git commits
+SIGNATURE=$(echo -n "$PLUGIN_CONTENT" | gpg --sign --detach-sign --armor --default-key ${GIT_SIGNING_KEY} | base64 -w 0)
+
+# Create or update environment variables for CI/CD
+echo "PLUGIN_PUBLIC_KEY=${PUBLIC_KEY}" > .env
+echo "PLUGIN_SIGNATURE=${SIGNATURE}" >> .env
+
+echo "Environment variables written to .env file"
+echo "Use these in your CI/CD pipeline to update config.json"
