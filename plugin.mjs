@@ -8,8 +8,16 @@ const source = {
     version: 1,
 
     initialize: async function(config) {
+        console.log("Starting plugin initialization with config:", {
+            serverUrl: config.serverUrl ? "[PROVIDED]" : "[MISSING]",
+            username: config.username ? "[PROVIDED]" : "[MISSING]",
+            password: config.password ? "[PROVIDED]" : "[MISSING]"
+        });
+        
         if (!config.serverUrl || !config.username || !config.password) {
-            throw new Error("Please provide server URL, username and password");
+            const error = new Error("Please provide server URL, username and password");
+            console.error("Initialization failed:", error);
+            throw error;
         }
 
         try {
