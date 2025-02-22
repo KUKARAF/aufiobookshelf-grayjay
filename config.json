@@ -11,8 +11,8 @@
     "iconUrl": "./icon.png",
     "id": "c0e25171-755f-4da8-9f9d-b5e4868a72d2",
     
-    "scriptSignature": "",
-    "scriptPublicKey": "",
+    "scriptSignature": "<OUTPUT_FROM_SIGNATURE>",
+    "scriptPublicKey": "<OUTPUT_FROM_PUBLIC_KEY>",
     "packages": ["Http"],
     
     "allowEval": false,
