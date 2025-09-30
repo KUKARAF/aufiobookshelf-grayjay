@@ -2,9 +2,9 @@
     "name": "Audiobookshelf",
     "description": "Access your Audiobookshelf server content - Stream audiobooks from your personal server",
     "author": "Plugin Developer",
-    "authorUrl": "https://github.com/advplyr/audiobookshelf",
-    "sourceUrl": "https://raw.githubusercontent.com/yourusername/grayjay-audiobookshelf/main/config.json",
-    "repositoryUrl": "https://github.com/yourusername/grayjay-audiobookshelf",
+    "authorUrl": "https://github.com/KUKARAF",
+    "sourceUrl": "https://raw.githubusercontent.com/KUKARAF/grayjay-audiobookshelf/main/config.json",
+    "repositoryUrl": "https://github.com/KUKARAF/grayjay-audiobookshelf",
     "scriptUrl": "./plugin.mjs",
     "version": 1,
     
@@ -24,7 +24,7 @@
         "serverUrl": {
             "type": "text",
             "label": "Server URL",
-            "placeholder": "https://your-audiobookshelf-server.com",
+            "placeholder": "https://audiobooks.osmosis.page",
             "description": "Your Audiobookshelf server URL (e.g., https://books.example.com)",
             "required": true
         },
